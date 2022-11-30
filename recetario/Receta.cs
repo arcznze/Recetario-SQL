@@ -74,9 +74,28 @@ namespace recetario
 
     internal class Recetario : recetarioBaseVisitor<object>
     {
+        List<recipes> recetas = new List<recipes>();
+
+        private int recipeCounter = 0;
+        private int ingredientCounter = 0;
+
+        public override object VisitCalorias([NotNull] recetarioParser.CaloriasContext context)
+        {
+            return base.VisitCalorias(context);
+        }
+
+        public override object VisitElaboracion([NotNull] recetarioParser.ElaboracionContext context)
+        {
+            return base.VisitElaboracion(context);
+        }
+
         public override object VisitEntry([NotNull] recetarioParser.EntryContext context)
         {
             string nombre = ((string)Visit(context.receta()));
+            recipeCounter++;
+            recipes recipe = new recipes(recipeCounter, nombre);
+            recetas.Add(recipe);
+
             return new Object();
         }
 
@@ -85,9 +104,24 @@ namespace recetario
             return base.VisitIngredientes(context);
         }
 
+        public override object VisitPorciones([NotNull] recetarioParser.PorcionesContext context)
+        {
+            return base.VisitPorciones(context);
+        }
+
         public override object VisitReceta([NotNull] recetarioParser.RecetaContext context)
         {
             return context.TEXT().GetText();
+        }
+
+        public override object VisitTiempococ([NotNull] recetarioParser.TiempococContext context)
+        {
+            return base.VisitTiempococ(context);
+        }
+
+        public override object VisitTiempoprep([NotNull] recetarioParser.TiempoprepContext context)
+        {
+            return base.VisitTiempoprep(context);
         }
     }
 }
