@@ -101,7 +101,18 @@ namespace recetario
 
         public override object VisitIngredientes([NotNull] recetarioParser.IngredientesContext context)
         {
-            return base.VisitIngredientes(context);
+            float cantidad = float.Parse(context.NUMBER()[0].GetText());
+            string nombre = context.TEXT()[0].GetText();
+            ingredientCounter++;
+            ingredients ingredient = new ingredients(ingredientCounter, nombre, cantidad);
+
+            List<ingredients> ingrediente = new List<ingredients>;
+            foreach (var ingredient_tree in ingredient)
+            {
+
+            }
+
+            return ingredient;
         }
 
         public override object VisitPorciones([NotNull] recetarioParser.PorcionesContext context)
